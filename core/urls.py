@@ -23,4 +23,4 @@ urlpatterns = [
     path('', include('spas.urls')), # gestion des routes avec l'application
     path('accounts/', include('django.contrib.auth.urls')), # gestion des comptes d'utilisateur
     path('admin/', admin.site.urls),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
