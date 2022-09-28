@@ -64,6 +64,7 @@ class Employe(models.Model):
     def __str__(self):
         return self.nom
 
+
 # Begin - customization of users
 class MyUserManager(BaseUserManager):
     def create_user(self, email, nom, prenom, pseudo, employe, password=None):
@@ -77,49 +78,51 @@ class MyUserManager(BaseUserManager):
             raise ValueError("Pseudo is required")
 
         user = self.model(
-            email = self.normalize_email(email),
-            nom = nom,
-            prenom = prenom,
-            pseudo = pseudo,
-            employe = employe
+            email=self.normalize_email(email),
+            nom=nom,
+            prenom=prenom,
+            pseudo=pseudo,
+            employe=employe,
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, nom, prenom, pseudo, employe, password=None):
+    def create_superuser(self, email, nom, prenom, pseudo, employe=None, password=None):
         user = self.create_user(
-            email=email,
+            email=self.normalize_email(email),
             nom=nom,
             prenom=prenom,
             pseudo=pseudo,
             employe=employe,
             password=password
         )
-        user.is_admin =True
-        user.is_staff =True
-        user.is_superuser=True
+        user.is_admin = True
+        user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
+
 class MyUser(AbstractBaseUser):
-    employe = models.OneToOneField(Employe, on_delete=models.CASCADE)
-    email=models.EmailField(verbose_name="Email address", max_length=60, unique=True)
+    employe = models.OneToOneField(Employe, on_delete=models.CASCADE, null=True, blank=True)
+    email = models.EmailField(verbose_name="Email address", max_length=60, unique=True)
     nom = models.CharField(verbose_name="Nom utilisateur", max_length=35)
     prenom = models.CharField(verbose_name="Prenom utilisateur", max_length=20)
     pseudo = models.CharField(verbose_name="Pseudo", max_length=20, unique=True)
-    date_joined=models.DateTimeField(auto_now_add=True, verbose_name="Date joined")
-    last_login=models.DateTimeField(verbose_name="Last login", auto_now=True)
-    is_admin=models.BooleanField(default=False)
-    is_active=models.BooleanField(default=True)
-    is_staff=models.BooleanField(default=False)
-    is_superuser=models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=True, verbose_name="Date joined")
+    last_login = models.DateTimeField(verbose_name="Last login", auto_now=True)
+    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
-    USERNAME_FIELD="pseudo"
+    USERNAME_FIELD = "pseudo"
 
-    REQUIRED_FIELDS = ['nom','prenom','email']
+    REQUIRED_FIELDS = ['nom', 'prenom', 'email']
 
     objects = MyUserManager()
+
     def __str__(self):
         return self.nom
 
@@ -129,6 +132,7 @@ class MyUser(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 # End - customization of users
+
 
 # Begin - signal between employe and users
 @receiver(post_save, sender=Employe)
@@ -142,11 +146,13 @@ def build_myuser(sender, instance, created, **kwargs):
             MyUser.objects.create(nom=instance.nom, prenom=instance.prenom, pseudo=pseudo_user, email=email_user, employe=instance)
             instance.myuser.set_password(pseudo_user)
 
+
 @receiver(post_save, sender=Employe)
 def save_myuser(sender, instance, **kwargs):
         instance.myuser.save()
 
 # End - signal between employe and users
+
 
 class Employe_service(models.Model):
     INACTIVE = 'INACTIVE'
