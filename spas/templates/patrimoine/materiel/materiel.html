@@ -1,0 +1,96 @@
+{% extends '../../base.html' %}
+
+{% block line1 %}MATERIEL{% endblock %}
+
+{% block line2 %}{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="card-title fw-bolder">MATERIELS</h2>
+				<div class="card-toolbar">
+					<a href="{% url 'search_materiel' %}" type="button" class="btn btn-flex btn-primary">
+						<!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
+					<span class="svg-icon svg-icon-2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+					</svg>
+					</span>
+					<!--end::Svg Icon--></a>
+
+					<a href="{% url 'create_materiel' %}" type="button" class="btn btn-flex btn-primary" style="margin-left:5px">
+						<!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
+					<span class="svg-icon svg-icon-2">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+						<rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
+					</svg>
+					</span>
+					<!--end::Svg Icon-->Ajouter</a>
+				</div>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+			<div class="card-body">
+					{% if materiels|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th>REFERENCE</th>
+									<th>NOM</th>
+									<th>DESCRIPTION</th>
+									<th>MODELE</th>
+									<th>ACTIONS</th>
+								</tr>
+							</thead>
+								{% for materiel in materiels %}
+									<tbody>
+										<tr>
+											<td>{{ materiel.ref_mat }}</td>
+											<td>{{ materiel.nom }}</td>
+											<td>{{ materiel.descrip }}</td>
+											<td>{{ materiel.mod_mat }}</td>
+											<td>
+												<a href="{% url 'update_materiel' materiel.id %}" class="">Modifier</a> /
+                								<a href="{% url 'delete_materiel' materiel.id %}" class="">Supprimer</a>
+											</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+			<ul class="pagination justify-content-center">
+				{% if materiels.has_previous %}
+						<li class="page-item"><a class="page-link" href="?page={{ materiels.previous_page_number }}">Précédent</a></li>
+				{% endif %}
+				{% for i in paginator.page_range %}
+					{% if i == materiels.number %}
+						<li class="page-item active">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% else %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+				{% if materiels.has_next %}
+						<li class="page-item"><a class="page-link" href="?page={{ materiels.next_page_number }}">Suivant</a></li>
+				{% endif %}
+			</ul><br>
+			{% else %}
+				Aucun enregistrement à afficher
+			{% endif %}
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+</script>
+{% endblock %}

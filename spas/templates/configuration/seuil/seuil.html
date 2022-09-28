@@ -1,0 +1,86 @@
+{% extends '../base.html' %}
+
+{% block line1 %}SEUIL FOURNITURE{% endblock %}
+
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="card-title fw-bolder">Liste Des Seuils - Fournitures</h2>
+				<div class="card-toolbar">
+					<a href="{% url 'create_seuil' %}" type="button" class="btn btn-flex btn-primary">
+						<!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
+					<span class="svg-icon svg-icon-2">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+						<rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
+					</svg>
+					</span>
+					<!--end::Svg Icon-->Ajouter</a>
+				</div>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+			<div class="card-body">
+					{% if seus|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th>Fourniture</th>
+									<th>Quantité</th>
+									<th>Date début</th>
+									<th>Date fin</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+								{% for se in seus %}
+									<tbody>
+										<tr>
+											<td>{{ se.fourniture }}</td>
+											<td>{{ se.qte_s }}</td>
+											<td>{{ se.date_d }}</td>
+											<td>{{ se.date_f }}</td>
+											<td>
+												<a href="{% url 'update_seuil' se.id %}" class="">Modifier</a> /
+                								<a href="{% url 'delete_seuil' se.id %}" class="">Supprimer</a>
+											</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+			<ul class="pagination justify-content-center">
+				{% if seus.has_previous %}
+						<li class="page-item"><a class="page-link" href="?page={{ seus.previous_page_number }}">Précédent</a></li>
+				{% endif %}
+				{% for i in paginator.page_range %}
+					{% if i == seus.number %}
+						<li class="page-item active">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% else %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+				{% if seus.has_next %}
+						<li class="page-item"><a class="page-link" href="?page={{ seus.next_page_number }}">Suivant</a></li>
+				{% endif %}
+			</ul><br>
+			{% else %}
+				Aucun enregistrement à afficher
+			{% endif %}
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+</script>
+{% endblock %}

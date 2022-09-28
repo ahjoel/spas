@@ -1,0 +1,88 @@
+{% extends '../../../base.html' %}
+
+{% block line1 %}MOUVEMENT FOURNITURE{% endblock %}
+
+{% block line2 %}Appro - Sortie{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+
+
+		<div class="d-flex flex-column flex-lg-row">
+									<!--begin::Content-->
+									<div class="flex-lg-row-auto me-lg-15">
+											<div class="card card-flush pt-3 mb-5">
+												<div class="card-header">
+													<div class="card-title">
+														<h2 class="fw-bolder">APPRO</h2>
+													</div>
+												</div>
+												<div class="card-body mouva">
+													{% if mouvsorsa|length > 0 %}
+													<table class="table table-hover">
+														<thead>
+															<tr class="fw-bolder fs-6 text-gray-800">
+																<th>Date</th>
+																<th>Fourniture</th>
+																<th>Quantité</th>
+																<th>Type mouvement</th>
+															</tr>
+														</thead>
+															{% for lsor in mouvsorsa %}
+																<tbody>
+																	<tr>
+																		<td>{{ lsor.date_m }}</td>
+																		<td>{{ lsor.fourniture }}</td>
+																		<td>{{ lsor.qte }}</td>
+																		<td>{{ lsor.type }}</td>
+																	</tr>
+																</tbody>
+															{% endfor %}
+													</table>
+													{% else %}
+													Aucun enregistrement à afficher
+												{% endif %}
+												</div>
+											</div>
+									</div>
+									<div class="flex-column flex-lg-row-fluid">
+										<div class="card card-flush pt-3 mb-5">
+											<div class="card-header">
+												<div class="card-title">
+													<h2>SORTIE</h2>
+												</div>
+											</div>
+											<div class="card-body mouvs">
+												{% if mouvsorss|length > 0 %}
+												<table class="table table-hover">
+														<thead>
+															<tr class="fw-bolder fs-6 text-gray-800">
+																<th>Date</th>
+																<th>Fourniture</th>
+																<th>Quantité</th>
+																<th>Type mouvement</th>
+															</tr>
+														</thead>
+															{% for lsor in mouvsorss %}
+																<tbody>
+																	<tr>
+																		<td>{{ lsor.date_m }}</td>
+																		<td>{{ lsor.fourniture }}</td>
+																		<td>{{ lsor.qte }}</td>
+																		<td>{{ lsor.type }}</td>
+																	</tr>
+																</tbody>
+															{% endfor %}
+													</table>
+												{% else %}
+													Aucun enregistrement à afficher
+												{% endif %}
+											</div>
+										</div>
+									</div>
+
+		</div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>SITUATION PERIODE</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style type="text/css">
+            @page {
+                size: A4;
+                margin: 1cm;
+                @frame footer_frame {
+                    -pdf-frame-content: footer_content;
+                    left: 50pt; width: 512pt; top: 820pt; height: 50pt;
+                }
+            }
+            table, th {
+              border: 1px solid black;
+              text-align: center;
+            }
+            thead {display: table-header-group;}
+            table {
+              border-collapse: collapse;
+              width: auto;
+            }
+            th {
+              background-color:gainsboro;
+              text-align: center;
+              font-size:10px;
+            }
+            .first{
+              width:20px;
+            }
+            .tete_a{
+              width: 140px;
+            }
+            .tete_m{
+              width: 50px;
+            }
+            th, td {
+              padding: 3px;
+              text-align: left;
+            }
+            
+        
+        </style>
+    </head>
+<body>
+<div class="container">
+    <h5 style="text-align:right">APPRO-STOCK</h5>
+
+    <div class="container mt-5">
+      <h2 style="text-align:center">SITUATION DES FOURNITURES - DU  {{ date_d }} AU {{ date_f }}</h2>
+        {% if fours|length > 0 %}
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="first">#</th>
+                <th>NOM</th>
+                <th class="tete_a">STOCK AVANT PERIODE</th>
+                <th class="tete_m">ENTREE</th>
+                <th class="tete_m">SORTIE</th>
+                <th class="tete_a">STOCK APRES PERIODE</th>
+              </tr>
+            </thead>
+              {% for f in fours %}
+                <tbody>
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+					<td>{{ f.nom }}</td>
+					<td>{{ f.st_init }}</td>
+					<td>{{ f.qt_e }}</td>
+					<td>{{ f.qt_s }}</td>
+					<td>{{ f.st_fin }}</td>
+                  </tr>
+                </tbody>
+              {% endfor %}
+          </table>
+        <div id="footer_content">2021(C) SPAS-BACO - {{ today | date:"d/m/Y" }} - page <pdf:pagenumber> de <pdf:pagecount> </div>
+        {% else %}
+				<p>..Aucun résultat à afficher :-)</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>

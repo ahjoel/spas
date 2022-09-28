@@ -1,0 +1,68 @@
+{% extends '../../../base.html' %}
+
+{% block line1 %}MOUVEMENT CONSOMMABLE{% endblock %}
+
+{% block line2 %}Appro - Sortie{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="card-title fw-bolder">APPRO SORTIE</h2>
+				<div class="card-toolbar">
+
+				</div>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+        <div class="card-body">
+					{% if mouvsors|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th>DATE</th>
+									<th>CONSOMMABLE</th>
+									<th>QUANTITE</th>
+									<th>TYPE MOUVEMENT</th>
+
+								</tr>
+							</thead>
+								{% for lsor in mouvsors %}
+									<tbody>
+										<tr>
+											<td>{{ lsor.date_m }}</td>
+											<td>{{ lsor.consommable }}</td>
+											<td>{{ lsor.qte }}</td>
+											<td>{{ lsor.type }}</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+			<ul class="pagination justify-content-center">
+				{% if mouvsors.has_previous %}
+						<li class="page-item"><a class="page-link" href="?page={{ mouvsors.previous_page_number }}">Précédent</a></li>
+				{% endif %}
+				{% for i in paginator.page_range %}
+					{% if i == mouvsors.number %}
+						<li class="page-item active">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% else %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+				{% if mouvsors.has_next %}
+						<li class="page-item"><a class="page-link" href="?page={{ mouvsors.next_page_number }}">Suivant</a></li>
+				{% endif %}
+			</ul><br>
+			{% else %}
+				Aucun enregistrement à afficher
+			{% endif %}
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'spas/assets/assets/css/bootstrap.min.css' %}">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="container" style="background-color: #f4f4f4">
+    <div class="form-container">
+        <form action="{% url 'codeisit' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="orderDate">Date de la commande</label>
+                        <input class="form-control" type="date" id="date_c" name="date_c" required />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="ref_c">Reference</label>
+                        <input class="form-control" type="text" id="ref_c" name="ref_c" required placeholder=""/>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="ref_c">Produit</label>
+                            <select class="form-control" name="productAdder" id="productAdder">
+                                <option value="1">Arachide</option>
+                                <option value="2">Colle</option>
+                                <option value="3">Biscuit</option>
+                                <option value="4">Limonade</option>
+                                <option value="5">Coca</option>
+                                <option value="6">Cola</option>
+                                <option value="7">Suchi</option>
+                                <option value="8">Avoine</option>
+                                <option value="9">Flocon</option>
+                                <option value="10">Corn</option>
+                                <option value="11">Flakes</option>
+                                <option value="12">Amande</option>
+                                <option value="13">Orchidée</option>
+                                <option value="14">Olive</option>
+                                <option value="15">Lait</option>
+                                <option value="16">Grenadine</option>
+                                <option value="17">Colle</option>
+                                <option value="18">Beurre</option>
+                                <option value="19">Vin</option>
+                                <option value="20">Whisky</option>
+                                <option value="21">Bière</option>
+                                <option value="22">Djama</option>
+                                <option value="23">Racine</option>
+                                <option value="24">Champagne</option>
+                                <option value="25">Rhum</option>
+                                <option value="26">Eponge</option>
+                                <option value="27">Riz</option>
+                                <option value="28">Blé</option>
+                                <option value="29">Fonio</option>
+                                <option value="30">Maîs</option>
+                                <option value="31">Mil</option>
+                                <option value="32">Sorgho</option>
+                                <option value="33">Manioc</option>
+                                <option value="34">Poisson</option>
+                                <option value="35">Igname</option>
+                                <option value="36">Saucisse</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="qte">Quantité</label>
+                            <input class="form-control" type="text" id="qteAdder" name="qte" placeholder=""/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="qte">Prix Unitaire</label>
+                            <input class="form-control" type="text" id="prixAdder" name="prix" placeholder=""/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 text-right">
+                        <button class="btn btn-primary text-right" type="button" id="btn-adder" >Ajouter</button>
+                        <button class="btn btn-warning text-right" type="button" id="btn-cancel" >Annuler</button>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 row">
+                    <div class="col-sm-12 table-responsive">
+                    <table id="table-line" class="table table-condensed table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Quantite</th>
+                                <th>PU</th>
+                                <th>Prix Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    </div>
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2 btn-sm">Enregistrer</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="{% static 'spas/assets/assets/js/bootstrap.min.js' %}"> </script>
+
+<script>
+    var btnAdder = document.querySelector('#btn-adder');
+    var btnCanceler = document.querySelector('#btn-cancel');
+
+    var productAdderField = document.querySelector('#productAdder');
+    var qteAdderField = document.querySelector('#qteAdder');
+    var priceAdderField = document.querySelector('#prixAdder');
+    var tableLine = document.querySelector('#table-line');
+    var tableLineBody = tableLine.querySelector('tbody');
+    var index = 0;
+    var currentIndex = null;
+
+    var actionUpdate = false;
+
+    function buildLine(line){
+        var index = line.dataset.index
+
+        var deleter = line.querySelector('.deleter')
+        var editer = line.querySelector('.editer')
+
+        deleter.addEventListener('click', function(){
+            console.log('deleter click')
+            line.remove();
+        });
+
+        editer.addEventListener('click', function(){
+            console.log('editer click')
+            var product = line.querySelector('[name="productIds[]"]');
+            var productId = product ? product.value : null;
+            var qte = line.querySelector('[name="qteProduct[]"]').value;
+            var price = line.querySelector('[name="prices[]"]').value;
+
+            productAdderField.value = productId;
+            qteAdderField.value = qte;
+            priceAdderField.value = price;
+
+            btnAdder.text = 'Modifier';
+            actionUpdate = true;
+
+            currentIndex = index;
+        });
+    }
+
+    function reinit(){
+        currentIndex = null;
+        btnAdder.text = 'Ajouter';
+        actionUpdate = false;
+        productAdderField.value = null;
+        qteAdderField.value = null;
+        priceAdderField.value = null;
+    }
+
+    function calculTotal(){
+
+    }
+
+    btnAdder.addEventListener('click', function(event){
+        var productId = productAdderField.value;
+        var qte = qteAdderField.value;
+        var price = priceAdderField.value;
+        var productLibelle = productAdderField.options[productAdderField.selectedIndex].text;
+
+        if(productId && qte && price){
+            var existedLine = tableLineBody.querySelector('[data-id="'+ productId +'"]');
+            var totalPrice = parseFloat(qte) * parseFloat(price);
+
+            if(existedLine && !actionUpdate){
+                alert('Ce produit existe deja');
+            }else{
+
+                if(actionUpdate && existedLine){
+                    existedLine.innerHTML = '<td><input type="hidden" name="productIds[]" value="'+ productId +'" />'+ productLibelle +'</td> <td><input type="hidden" name="qteProduct[]" value="'+ qte +'" />'+ qte +'</td> <td> <input type="hidden" name="prices[]" value="'+ price +'" />'+ price +'</td> <td>'+ totalPrice +'</td> <td> <button type="button" class="editer btn btn-sm btn-warning" data-index="'+ currentIndex +'" >Modifier</button> <button type="button" class="deleter btn btn-sm btn-danger" data-index="'+ currentIndex +'" >Supprimer</button>  </td>';
+                    buildLine(existedLine)
+                }else{
+                    if(!existedLine){
+                        index++;
+                        var newRow = tableLineBody.insertRow();
+                        newRow.setAttribute('data-index', index);
+                        newRow.setAttribute('data-id', productId);
+                        newRow.innerHTML = '<td><input type="hidden" name="productIds[]" value="'+ productId +'" />'+ productLibelle +'</td> <td><input type="hidden" name="qteProduct[]" value="'+ qte +'" />'+ qte +'</td> <td> <input type="hidden" name="prices[]" value="'+ price +'" />'+ price +'</td> <td>'+ totalPrice +'</td> <td> <button type="button" class="editer btn btn-sm btn-warning" data-index="'+ index +'" >Modifier</button> <button type="button" class="deleter btn btn-sm btn-danger" data-index="'+ index +'" >Supprimer</button>  </td>';
+                        buildLine(newRow);
+
+                    }
+                }
+                reinit();
+            }
+        }
+    });
+
+    //A faire : verification libelle produit en mode update
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<!--begin::Head-->
+	<head><base href="">
+		<meta charset="utf-8" />
+		<title>SPAS | Patrimoine & Stock</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		{% load static %}
+		<link rel="shortcut icon" href="{% static 'spas/assets1/media/logos/l1.png' %}" />
+		<!--begin::Fonts-->
+		<link rel="stylesheet" href="{% static 'spas/assets1/css/fonts.css' %}" />
+		<!--end::Fonts-->
+		<!--begin::Page Vendor Stylesheets(used by this page)
+		<link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />-->
+		<!--end::Page Vendor Stylesheets-->
+		<!--begin::Global Stylesheets Bundle(used by all pages)-->
+		<link rel="stylesheet" href="{% static 'spas/assets1/css/bootstrap.min.css' %}">
+		<link href="{% static 'spas/assets1/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'spas/assets1/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+		<!--end::Global Stylesheets Bundle-->
+		<style type="text/css"> .scro { overflow-y: auto; height: 350px; overflow-x: hidden; } .scro thead th { position: sticky; top: 0; background: #ffff;} .stok { overflow-y: auto; height: 440px; overflow-x: hidden; } .stok thead th { position: sticky; top: 0; background: #ffff;}
+			.mouva { overflow-y: auto; height: 440px; overflow-x: hidden; } .mouva thead th { position: sticky; top: 0; background: #ffff;}
+			.mouvs { overflow-y: auto; height: 440px; overflow-x: hidden; } .mouvs thead th { position: sticky; top: 0; background: #ffff;}
+		  .arrow-right { width: 0;height: 0;border-top: 4px solid transparent;border-bottom: 4px solid transparent;border-left: 4px solid #795548;}
+		  #navi #navi1 #navi2 #navi3 #navi4 #navi5 #navi6 #navi7 #navi8 .arrow-right { transition: all 0.5s ease;} .rtoate180 { transform: rotate(90deg);}
+				</style>
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed toolbar-tablet-and-mobile-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+		<!--begin::Main-->
+		<!--begin::Root-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Page-->
+			<div class="page d-flex flex-row flex-column-fluid">
+				<!--begin::Aside-->
+				<div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+					<!--begin::Brand-->
+					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
+						<!--begin::Logo-->
+						<a href="{% url 'home' %}">
+							<img alt="Logo" src="{% static 'spas/assets1/media/logos/mp2.png' %}" class="h-15px logo" />
+						</a>
+						<!--end::Logo-->
+						<!--begin::Aside toggler-->
+						<div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">
+							<!--begin::Svg Icon | path: icons/duotone/Navigation/Angle-double-left.svg-->
+							<span class="svg-icon svg-icon-1 rotate-180">
+								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+									<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+										<polygon points="0 0 24 0 24 24 0 24" />
+										<path d="M5.29288961,6.70710318 C4.90236532,6.31657888 4.90236532,5.68341391 5.29288961,5.29288961 C5.68341391,4.90236532 6.31657888,4.90236532 6.70710318,5.29288961 L12.7071032,11.2928896 C13.0856821,11.6714686 13.0989277,12.281055 12.7371505,12.675721 L7.23715054,18.675721 C6.86395813,19.08284 6.23139076,19.1103429 5.82427177,18.7371505 C5.41715278,18.3639581 5.38964985,17.7313908 5.76284226,17.3242718 L10.6158586,12.0300721 L5.29288961,6.70710318 Z" fill="#000000" fill-rule="nonzero" transform="translate(8.999997, 11.999999) scale(-1, 1) translate(-8.999997, -11.999999)" />
+										<path d="M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z" fill="#000000" fill-rule="nonzero" opacity="0.5" transform="translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999)" />
+									</g>
+								</svg>
+							</span>
+							<!--end::Svg Icon-->
+						</div>
+						<!--end::Aside toggler-->
+					</div>
+					<!--end::Brand-->
+					<!--begin::Aside menu-->
+					<div class="aside-menu flex-column-fluid">
+						<!--begin::Aside Menu-->
+						<div class="hover-scroll-overlay-y my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="0">
+							<!--begin::Menu-->
+							{% with url_name=request.resolver_match.url_name %}
+							<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-black-500" id="#kt_aside_menu" data-kt-menu="true">
+								<div class="menu-item">
+									<a class="menu-link {% if url_name == 'home' %} active {% endif %}" href="{% url 'home' %}">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotone/Design/PenAndRuller.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+													<path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z" fill="#000000" opacity="0.3" />
+													<path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z" fill="#000000" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Accueil</span>
+									</a>
+								</div>
+								
+								<div class="menu-item">
+									<div class="menu-content pt-8 pb-2">
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">CONFIGURATION</span>
+									</div>
+								</div>
+
+								<div id="navi" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'list_u_orga' or url_name == 'list_employe' or url_name == 'list_employe_unite' or url_name == 'create_employe' or url_name == 'update_employe' or url_name == 'delete_employe' or url_name == 'create_u_orga' or url_name == 'update_u_orga' or url_name == 'delete_u_orga' or url_name == 'create_employe_unite' or url_name == 'update_employe_unite' or url_name == 'delete_employe_unite' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotone/General/User.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<polygon points="0 0 24 0 24 24 0 24" />
+														<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+														<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+													</g>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">UTILISATEUR</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion menu-active-bg">
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_u_orga' or url_name == 'create_u_orga' or url_name == 'update_u_orga' or url_name == 'delete_u_orga' %} active {% endif %}" href="{% url 'list_u_orga' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SERVICE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_employe' or url_name == 'create_employe' or url_name == 'update_employe' or url_name == 'delete_employe' %} active {% endif %}" href="{% url 'list_employe' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">EMPLOYE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_employe_unite' or url_name == 'create_employe_unite' or url_name == 'update_employe_unite' or url_name == 'delete_employe_unite' %} active {% endif %}" href="{% url 'list_employe_unite' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">EMPLOYE SERVICE</span>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="menu-item">
+									<div class="menu-content pt-8 pb-2">
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">MENU</span>
+									</div>
+								</div>
+								<div id="navi1" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'list_modele'  or url_name == 'search_materiel' or url_name == 'list_maintenance' or url_name == 'list_materiel' or url_name == 'create_modele' or url_name == 'update_modele' or url_name == 'delete_modele' or url_name == 'create_maintenance' or url_name == 'update_maintenance' or url_name == 'delete_maintenance' or url_name == 'create_materiel' or url_name == 'update_materiel' or url_name == 'delete_materiel' or url_name == 'list_consommable' or url_name == 'create_consommable' or url_name == 'update_consommable' or url_name == 'delete_consommable' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+												  <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">MATERIEL</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion">
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_modele' or url_name == 'create_modele' or url_name == 'update_modele' or url_name == 'delete_modele' %} active {% endif %}" href="{% url 'list_modele' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">MODELE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_maintenance' or url_name == 'create_maintenance' or url_name == 'update_maintenance' or url_name == 'delete_maintenance' %} active {% endif %}" href="{% url 'list_maintenance' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">MAINTENANCE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_materiel' or url_name == 'search_materiel' or url_name == 'create_materiel' or url_name == 'update_materiel' or url_name == 'delete_materiel' %} active {% endif %}" href="{% url 'list_materiel' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">MATERIELS</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_consommable' or url_name == 'create_consommable' or url_name == 'update_consommable' or url_name == 'delete_consommable' %} active {% endif %}" href="{% url 'list_consommable' %}">
+													<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+													</span>
+												<span class="menu-title">CONSOMMABLE</span>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div id="navi2" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'list_type' or url_name == 'list_fourniture' or url_name == 'create_type' or url_name == 'update_type' or url_name == 'delete_type' or url_name == 'create_fourniture' or url_name == 'search_fourniture' or url_name == 'update_fourniture' or url_name == 'delete_fourniture' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+													<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+														<rect x="0" y="0" width="24" height="24" />
+														<path d="M4,9.67471899 L10.880262,13.6470401 C10.9543486,13.689814 11.0320333,13.7207107 11.1111111,13.740321 L11.1111111,21.4444444 L4.49070127,17.526473 C4.18655139,17.3464765 4,17.0193034 4,16.6658832 L4,9.67471899 Z M20,9.56911707 L20,16.6658832 C20,17.0193034 19.8134486,17.3464765 19.5092987,17.526473 L12.8888889,21.4444444 L12.8888889,13.6728275 C12.9050191,13.6647696 12.9210067,13.6561758 12.9368301,13.6470401 L20,9.56911707 Z" fill="#000000" />
+														<path d="M4.21611835,7.74669402 C4.30015839,7.64056877 4.40623188,7.55087574 4.5299008,7.48500698 L11.5299008,3.75665466 C11.8237589,3.60013944 12.1762411,3.60013944 12.4700992,3.75665466 L19.4700992,7.48500698 C19.5654307,7.53578262 19.6503066,7.60071528 19.7226939,7.67641889 L12.0479413,12.1074394 C11.9974761,12.1365754 11.9509488,12.1699127 11.9085461,12.2067543 C11.8661433,12.1699127 11.819616,12.1365754 11.7691509,12.1074394 L4.21611835,7.74669402 Z" fill="#000000" opacity="0.3" />
+													</g>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">FOURNITURES</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion">
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_type' or url_name == 'create_type' or url_name == 'update_type' or url_name == 'delete_type' %} active {% endif %}" href="{% url 'list_type' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">TYPE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_fourniture' or url_name == 'search_fourniture' or url_name == 'create_fourniture' or url_name == 'update_fourniture' or url_name == 'delete_fourniture' %} active {% endif %}" href="{% url 'list_fourniture' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">FOURNITURE</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div id="navi3" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'search_fourniture_sortie' or url_name == 'search_fourniture_cmd' or url_name == 'search_fourniture_entree' or url_name == 'detail_lcommande' or url_name == 'list_lcommande' or url_name == 'list_lsortie' or url_name == 'create_flcom' or url_name == 'update_lcommande' or url_name == 'delete_lcommande' or url_name == 'list_lentree' or url_name == 'detail_lentree' or url_name == 'create_lentree' or url_name == 'update_lentree' or url_name == 'delete_lentree' or url_name == 'create_lsortie' or url_name == 'detail_lsortie' or url_name == 'update_lsortie' or url_name == 'delete_lsortie' or url_name == 'list_mouvapprosortie' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">MOUVEMENT FOURNITURES</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion">
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_fourniture_cmd' or url_name == 'list_lcommande' or url_name == 'create_flcom' or url_name == 'update_lcommande' or url_name == 'delete_lcommande' %} active {% endif %}" href="{% url 'list_lcommande' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">COMMANDE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_lentree' or url_name == 'search_fourniture_entree' or url_name == 'detail_lentree' or url_name == 'create_lentree' or url_name == 'update_lentree' or url_name == 'delete_lentree' %} active {% endif %}" href="{% url 'list_lentree' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">APPROVISIONNEMENT</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_lsortie' or url_name == 'detail_lsortie' or url_name == 'search_fourniture_sortie' or url_name == 'create_lsortie' or url_name == 'update_lsortie' or url_name == 'delete_lsortie' %} active {% endif %}" href="{% url 'list_lsortie' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SORTIE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_mouvapprosortie' %} active {% endif %}" href="{% url 'list_mouvapprosortie' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">APPRO-SORTIE</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div id="navi4" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'search_consommable_sortie' or url_name == 'search_consommable_entree' or url_name == 'search_consommable_cmd' or url_name == 'detail_lccommande' or url_name == 'detail_lcentree' or url_name == 'list_lccommande' or url_name == 'create_clcom' or url_name == 'update_lccommande' or url_name == 'delete_lccommande' or url_name == 'list_lcentree' or url_name == 'list_lcsortie' or url_name == 'create_lcentree' or url_name == 'update_lcentree' or url_name == 'delete_lcentree' or url_name == 'create_clsor' or url_name == 'detail_lcsortie' or url_name == 'update_lcsortie' or url_name == 'delete_lcsortie' or url_name == 'list_mouvcapprosortie' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">MOUVEMENT CONSOMMABLES</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion">
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_consommable_cmd' or url_name == 'list_lccommande' or url_name == 'create_clcom' or url_name == 'update_lccommande' or url_name == 'delete_lccommande' %} active {% endif %}" href="{% url 'list_lccommande' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">COMMANDE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_consommable_entree' or url_name == 'list_lcentree' or url_name == 'detail_lcentree' or url_name == 'create_lcentree' or url_name == 'update_lcentree' or url_name == 'delete_lcentree' %} active {% endif %}" href="{% url 'list_lcentree' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">APPROVISIONNEMENT</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_consommable_sortie' or url_name == 'list_lcsortie' or url_name == 'detail_lcsortie' or url_name == 'create_clsor' or url_name == 'update_lcsortie' or url_name == 'delete_lcsortie' %} active {% endif %}" href="{% url 'list_lcsortie' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">SORTIE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'list_mouvcapprosortie' %} active {% endif %}" href="{% url 'list_mouvcapprosortie' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">APPRO-SORTIE</span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div id="navi5" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'search_materiel_affect' or url_name == 'search_materiel_entree' or url_name == 'search_materiel_cmd' or url_name == 'detail_lmcommande' or url_name == 'detail_lmentree' or url_name == 'list_affectation' or url_name == 'create_affectation' or url_name == 'update_affectation' or url_name == 'delete_affectation' or url_name == 'list_lmcommande' or url_name == 'list_lmentree' or url_name == 'create_mlcom' or url_name == 'update_lmcommande' or url_name == 'delete_lmcommande' or url_name == 'create_lmentree' or url_name == 'update_lmentree' or url_name == 'delete_lmentree' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotone/Communication/Group-chat.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">MOUVEMENT MATERIELS</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion">
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_materiel_cmd' or url_name == 'detail_lmcommande' or url_name == 'list_lmcommande' or url_name == 'create_mlcom' or url_name == 'update_lmcommande' or url_name == 'delete_lmcommande' %} active {% endif %}" href="{% url 'list_lmcommande' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">COMMANDE</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_materiel_entree' or url_name == 'list_lmentree' or url_name == 'detail_lmentree' or url_name == 'create_lmentree' or url_name == 'update_lmentree' or url_name == 'delete_lmentree' %} active {% endif %}" href="{% url 'list_lmentree' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">APPROVISIONNEMENT</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link {% if url_name == 'search_materiel_affect' or url_name == 'list_affectation' or url_name == 'create_affectation' or url_name == 'update_affectation' or url_name == 'delete_affectation' %} active {% endif %}" href="{% url 'list_affectation' %}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">AFFECTATION</span>
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="menu-item">
+									<a class="menu-link {% if url_name == 'list_fournisseur' or url_name == 'create_fournisseur' or url_name == 'update_fournisseur' or url_name == 'delete_fournisseur' %} active {% endif %}" href="{% url 'list_fournisseur' %}">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diagram-3-fill" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zm-6 8A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm6 0A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm6 0a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1z"/>
+												</svg>
+											</span>
+										</span>
+										<span class="menu-title">FOURNISSEUR</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<div class="menu-content pt-8 pb-0">
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">STATISTIQUE</span>
+									</div>
+								</div>
+								<div id="navi6" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'sit_period' or url_name == 'maint_c' or url_name == 'commande_en_cours' %} here show {% endif %} menu-accordion">
+									<span class="menu-link">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
+												  <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">ETATS</span>
+										<span class="arrow-right"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion menu-active-bg">
+										<div id="navi7" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'sit_period' or url_name == 'commande_en_cours' %} here show {% endif %} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">STOCK</span>
+												<span class="arrow-right"></span>
+											</span>
+											<div class="menu-sub menu-sub-accordion menu-active-bg">
+													<div class="menu-item">
+														<a class="menu-link {% if url_name == 'cmd_c' %} active {% endif %}" href="{% url 'commande_en_cours' %}">
+															<span class="menu-bullet">
+																<span class="bullet bullet-dot"></span>
+															</span>
+															<span class="menu-title">COMMANDE EN COURS</span>
+														</a>
+													</div>
+													<div class="menu-item">
+														<a class="menu-link {% if url_name == 'sit_period' %} active {% endif %}" href="{% url 'sit_period' %}">
+															<span class="menu-bullet">
+																<span class="bullet bullet-dot"></span>
+															</span>
+															<span class="menu-title">SITUATION PERIODE</span>
+														</a>
+													</div>
+											</div>
+										</div>
+										<div id="navi8" data-kt-menu-trigger="click" class="menu-item {% if url_name == 'maint_c' %} here show {% endif %} menu-accordion">
+											<span class="menu-link">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">PATRIMOINE</span>
+												<span class="arrow-right"></span>
+											</span>
+											<div class="menu-sub menu-sub-accordion menu-active-bg">
+													<div class="menu-item">
+														<a class="menu-link {% if url_name == 'maint_c' %} active {% endif %}" href="{% url 'maint_c' %}">
+															<span class="menu-bullet">
+																<span class="bullet bullet-dot"></span>
+															</span>
+															<span class="menu-title">PREVISION MAINTENANCE</span>
+														</a>
+													</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								{% endwith %}
+							</div>
+							<!--end::Menu-->
+						</div>
+					</div>
+				</div>
+				<!--end::Aside-->
+				<!--begin::Wrapper-->
+				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+					<!--begin::Header-->
+					<div id="kt_header" style="background-color: #80cbc4;" class="header align-items-stretch">
+						<!--begin::Container-->
+						<div class="container-fluid d-flex align-items-stretch justify-content-between">
+
+							<div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
+								<a href="{% url 'home' %}" class="d-lg-none">
+									<img alt="Logo" src="{% static 'spas/assets1/media/logos/logo-3.svg' %}" class="h-30px" />
+								</a>
+							</div>
+							<!--end::Mobile logo-->
+							<!--begin::Wrapper-->
+							<div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+								<!--begin::Navbar-->
+								<div class="d-flex align-items-stretch" id="kt_header_nav">
+									<!--begin::Menu wrapper-->
+									<div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+										<!--begin::Menu-->
+										<div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
+											<div class="menu-item me-lg-1">
+												<a class="menu-link active py-3" href="{% url 'home' %}">
+													<span class="svg-icon svg-icon-2">
+														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+														  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+														</svg>
+													</span>
+												</a>
+											</div>
+
+										</div>
+										<!--end::Menu-->
+									</div>
+									<!--end::Menu wrapper-->
+								</div>
+
+								<div class="d-flex align-items-center">
+										<span>Bonjour,</span>
+										<a class="btn nav-link dropdown-toggle" data-toggle="dropdown" style="margin-left:-10px; text-decoration:none; color:black" href="#">{{request.user.nom }} {{request.user.prenom }} ({{request.user.pseudo}})</a>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#">Changer de mot de passe</a>
+											<a class="dropdown-item" href="{% url 'logout' %}">
+												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+												  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+												  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+												</svg>
+												Déconnexion
+											</a>
+										</div>
+
+								</div>
+							</div>
+							<!--end::Wrapper-->
+						</div>
+						<!--end::Container-->
+					</div>
+					<!--end::Header-->
+					<!--begin::Content-->
+					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+						<!--begin::Toolbar-->
+						<div class="toolbar" id="kt_toolbar">
+							<!--begin::Container-->
+							<div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
+								<!--begin::Page title-->
+								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
+									<!--begin::Title-->
+									<h1 class="d-flex align-items-center text-dark fw-bolder my-1 fs-6">{% block line1 %} {% endblock %}</h1>
+									<!--begin::Separator-->
+									<span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
+									<!--end::Separator-->
+										<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+
+										<li class="breadcrumb-item text-muted">
+											<small class="text-muted fs-7 fw-bold my-1 ms-1">{% block line2 %} {% endblock %}</small>
+										</li>
+										<li class="breadcrumb-item">
+
+										</li>
+										<span class="h-20px border-gray-200 text-dark fw-bolder my-1 fs-7 mx-2">{% block line3 %} {% endblock %}</span>
+
+										</ul>
+
+									<!--end::Description-->
+									<!--end::Title-->
+								</div>
+								<!--end::Page title-->
+								<!--begin::Actions-->
+
+								<div class="d-flex align-items-center py-1">
+									<!--begin::Wrapper-->
+									<!--end::Wrapper-->
+									<!--begin::Button-->
+									{% block line4 %} {% endblock %}
+									<!--end::Button-->
+								</div>
+								<!--end::Actions-->
+							</div>
+							<!--end::Container-->
+						</div>
+						<!--end::Toolbar-->
+						<!--begin::Post-->
+						<div class="post d-flex flex-column-fluid" id="kt_post">
+							<!--begin::Container-->
+							<!--begin::Container-->
+
+							{% block content %} {% endblock %}
+
+							<!--end::Container-->
+							<!--end::Container-->
+						</div>
+						<!--end::Post-->
+					</div>
+					<!--end::Content-->
+					<!--begin::Footer-->
+					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+						<!--begin::Container-->
+						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
+							<!--begin::Copyright-->
+							<div class="text-dark order-2 order-md-1">
+								<span class="text-muted fw-bold me-1">2022©</span>
+								<a href="https://www.baco.tg/" target="_blank" class="text-gray-800 text-hover-primary">SPAS-INFOTIC-SOLUTION</a>
+							</div>
+							<!--end::Copyright-->
+							<!--begin::Menu-->
+							
+							<!--end::Menu-->
+						</div>
+						<!--end::Container-->
+					</div>
+					<!--end::Footer-->
+				</div>
+				<!--end::Wrapper-->
+			</div>
+			<!--end::Page-->
+		</div>
+
+		<!--begin::Scrolltop-->
+		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+			<!--begin::Svg Icon | path: icons/duotone/Navigation/Up-2.svg-->
+			<span class="svg-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+					<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+						<polygon points="0 0 24 0 24 24 0 24" />
+						<rect fill="#000000" opacity="0.5" x="11" y="10" width="2" height="10" rx="1" />
+						<path d="M6.70710678,12.7071068 C6.31658249,13.0976311 5.68341751,13.0976311 5.29289322,12.7071068 C4.90236893,12.3165825 4.90236893,11.6834175 5.29289322,11.2928932 L11.2928932,5.29289322 C11.6714722,4.91431428 12.2810586,4.90106866 12.6757246,5.26284586 L18.6757246,10.7628459 C19.0828436,11.1360383 19.1103465,11.7686056 18.7371541,12.1757246 C18.3639617,12.5828436 17.7313944,12.6103465 17.3242754,12.2371541 L12.0300757,7.38413782 L6.70710678,12.7071068 Z" fill="#000000" fill-rule="nonzero" />
+					</g>
+				</svg>
+			</span>
+			<!--end::Svg Icon-->
+		</div>
+		<!--end::Scrolltop-->
+		<!--end::Main-->
+		<!--begin::Javascript-->
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="{% static 'spas/assets1/plugins/global/plugins.bundle.js' %}"></script>
+		<script src="{% static 'spas/assets1/js/scripts.bundle.js' %}"></script>
+		<script src="{% static 'spas/assets1/js/jquery-3.6.0.min.js' %}"> </script>
+		<script src="{% static 'spas/assets1/js/sweet.js' %}"></script>
+		<script src="{% static 'spas/assets1/js/popper.min.js' %}"></script>
+  		<script src="{% static 'spas/assets1/js/bootstrap.min.js' %}"></script>
+		<script>
+			$(document).ready(function(){
+			  $("#navi").click(function(){
+				$("#navi .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi1").click(function(){
+				$("#navi1 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi2").click(function(){
+				$("#navi2 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi3").click(function(){
+				$("#navi3 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi4").click(function(){
+				$("#navi4 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi5").click(function(){
+				$("#navi5 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi6").click(function(){
+				$("#navi6 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi7").click(function(){
+				$("#navi7 .arrow-right").toggleClass("rtoate180");
+			  });
+			  $("#navi8").click(function(){
+				$("#navi8 .arrow-right").toggleClass("rtoate180");
+			  });
+			});
+		</script>
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Page Vendors Javascript(used by this page)
+		<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>-->
+		<!--end::Page Vendors Javascript-->
+		<!--begin::Page Custom Javascript(used by this page)
+		<script src="assets/js/custom/widgets.js"></script>
+		<script src="assets/js/custom/apps/chat/chat.js"></script>
+		<script src="assets/js/custom/modals/create-app.js"></script>
+		<script src="assets/js/custom/modals/upgrade-plan.js"></script>-->
+		<!--end::Page Custom Javascript-->
+		{% block js %} {% endblock %}
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
+</html>

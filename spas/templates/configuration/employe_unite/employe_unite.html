@@ -1,0 +1,88 @@
+{% extends '../../base.html' %}
+
+{% block line1 %}UTILISATEUR{% endblock %}
+
+{% block line2 %}Employe Service{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="card-title fw-bolder">EMPLOYE SERVICE</h2>
+				<div class="card-toolbar">
+					<a href="{% url 'create_employe_unite' %}" type="button" class="btn btn-flex btn-primary">
+						<!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
+					<span class="svg-icon svg-icon-2">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+						<rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
+					</svg>
+					</span>
+					<!--end::Svg Icon-->Ajouter</a>
+				</div>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+			<div class="card-body">
+					{% if employe_us|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th>SERVICE</th>
+									<th>NOM & PRENOM</th>
+									<th>DATE DEBUT</th>
+									<th>DATE FIN</th>
+									<th>ACTIONS</th>
+								</tr>
+							</thead>
+								{% for employe_u in employe_us %}
+									<tbody>
+										<tr>
+											<td>{{ employe_u.u_orga }}</td>
+											<td>{{ employe_u.employe }} - {{ employe_u.employe.prenom }}</td>
+											<td>{{ employe_u.date_d }}</td>
+											<td>{{ employe_u.date_f }}</td>
+											<td>
+												<a href="{% url 'update_employe_unite' employe_u.id %}" class="">Modifier</a> /
+                								<a href="{% url 'delete_employe_unite' employe_u.id %}" class="">Supprimer</a>
+											</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+			<ul class="pagination justify-content-center">
+				{% if employe_us.has_previous %}
+						<li class="page-item"><a class="page-link" href="?page={{ employe_us.previous_page_number }}">Précédent</a></li>
+				{% endif %}
+				{% for i in paginator.page_range %}
+					{% if i == employe_us.number %}
+						<li class="page-item active">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% else %}
+						<li class="page-item">
+							<a class="page-link" href="?page={{ i }}">{{i}}</a>
+						</li>
+					{% endif %}
+				{% endfor %}
+				{% if employes.has_next %}
+						<li class="page-item"><a class="page-link" href="?page={{ employe_us.next_page_number }}">Suivant</a></li>
+				{% endif %}
+			</ul><br>
+			{% else %}
+				Aucun enregistrement à afficher
+			{% endif %}
+	</div>
+	<!--end::Card-->
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+</script>
+{% endblock %}

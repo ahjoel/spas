@@ -1,0 +1,5 @@
+<option value="">---------</option>
+{% for c in c_cmds %}
+<option value="{{ c.pk }}">{{ c.nom|escape }}({{ c.qte_c|center:"5" }} {{ c.prix_c|floatformat:"-3" }})</option>
+{% endfor %}
+

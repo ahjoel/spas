@@ -1,0 +1,84 @@
+{% extends '../../base.html' %}
+
+{% block line1 %}ETATS{% endblock %}
+
+{% block line2 %}STOCK{% endblock %}
+
+{% block line3 %}| SITUATION DES FOURNITURES DE STOCK
+{% if sit_p %} PERIODE DU {{ date_d }} AU {{ date_f }} {% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+		<div class="card-header">
+
+
+				<form method="GET" autocomplete="off" class="form-inline" action="{% url 'sit_period' %}">
+                            {% csrf_token %}
+				  <div class="form-group mb-2">
+					 <label class="fw-bolder mr-sm-2" for="date_d">Date début :</label>
+					 <input type='date' class="form-control" value="{{ date_d|default_if_none:'' }}" id="date_d" name="date_d"/>
+				  </div>
+				  <div class="form-group mx-sm-3 mb-2">
+					 <label class="fw-bolder mr-sm-2" for="date_f">Date fin :</label>
+					 <input type='date' class="form-control" value="{{ date_f|default_if_none:'' }}" id="date_f" name="date_f"/>
+				  </div>
+				  <button type="submit" class="btn btn-sm btn-primary mb-2">Rechercher</button>
+				</form>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+			<div class="card-body stok">
+					{% if sit_p|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th class="min-w-10px">#</th>
+									<th class="min-w-125px">Fourniture</th>
+									<th class="min-w-50px">Stock Initial</th>
+									<th class="min-w-50px">Quantité Entrée</th>
+									<th class="min-w-50px">Quantité Sortie</th>
+									<th class="min-w-50px">Stock Final</th>
+								</tr>
+							</thead>
+								{% for lent in sit_p %}
+									<tbody>
+										<tr>
+											<td>{{ forloop.counter }}</td>
+											<td>{{ lent.nom }}</td>
+											<td>{{ lent.st_init }}</td>
+											<td>{{ lent.qt_e }}</td>
+											<td>{{ lent.qt_s }}</td>
+											<td>{{ lent.st_fin }}</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+					{% else %}
+						Aucun résultat à afficher
+	</div>
+			{% endif %}
+	</div>
+
+	<div style="text-align:right;margin-top:10px;">
+		<form method="GET" autocomplete="off" class="form-inline" action="{% url 'pdf_view' %}">
+                            {% csrf_token %}
+			<input type='hidden' class="form-control" value="{{ date_d|default_if_none:'' }}" id="date_d" name="date_d"/>
+			<input type='hidden' class="form-control" value="{{ date_f|default_if_none:'' }}" id="date_f" name="date_f"/>
+			<button type="submit" class="btn btn-sm btn-primary mb-2">Export PDF</button>
+		</form>
+	</div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends '../../../base.html' %}
+
+{% block line1 %}MOUVEMENT CONSOMMABLE{% endblock %}
+
+{% block line2 %}Sortie{% endblock %}
+
+{% block line3 %}Recherche{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+		<div class="card-header">
+			<form method="GET" class="form-inline" action="{% url 'search_consommable_sortie' %}">
+                            {% csrf_token %}
+				  <div class="form-group mx-sm-3 mb-2">
+					 <label class="fw-bolder mr-sm-2" for="date_csort">Date</label>
+					 <input type='date' class="form-control" required autocomplete="off" value="{{ date_csort|default_if_none:'' }}" id="date_csort" name="date_csort"/>
+				  </div>
+				  <button type="submit" class="btn btn-sm btn-primary mb-2">
+					  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+					</svg>
+				  </button>
+			</form>
+			<div class="card-toolbar">
+				<a href="{% url 'create_clsor' %}" type="button" class="btn btn-flex btn-primary mb-2">
+						<!--begin::Svg Icon | path: icons/duotone/Navigation/Plus.svg-->
+					<span class="svg-icon svg-icon-2">
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
+						<rect fill="#000000" opacity="0.5" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000)" x="4" y="11" width="16" height="2" rx="1" />
+					</svg>
+					</span>
+					<!--end::Svg Icon-->Ajouter</a>
+				<a href="{% url 'list_lcsortie' %}" type="button" class="btn btn-flex btn-primary mb-2" style="margin-left:5px">
+						<span class="svg-icon svg-icon-2">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+							  <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+							</svg>
+						</span>Retour</a>
+			</div>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+			<div class="card-body stok">
+					{% if csorts|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th>SORTIE</th>
+									<th>DATE SORTIE</th>
+									<th>UTILISATEUR</th>
+									<th>CONSOMMABLE</th>
+									<th>QUANTITE</th>
+									<th>OBSERVATION</th>
+									<th>ACTIONS</th>
+								</tr>
+							</thead>
+								{% for lcsor in csorts %}
+									<tbody>
+										<tr>
+											<td>{{ lcsor.sortie.ref_s }}</td>
+											<td>{{ lcsor.sortie.date_s }}</td>
+											<td>{{ lcsor.sortie.employe.nom }} {{ lcsor.sortie.employe.prenom }}</td>
+											<td>{{ lcsor.consommable }}</td>
+											<td>{{ lcsor.qte_s }}</td>
+											<td>{{ lcsor.obs_ls }}</td>
+											<td>
+												<a href="{% url 'update_lcsortie' lcsor.id %}" class="">Modifier</a> /
+                								<a href="{% url 'delete_lcsortie' lcsor.id %}" class="">Supprimer</a>
+											</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+					{% else %}
+						<h5>😏 Oups... Aucun résultat à afficher :-) </h5>
+					</div>
+			{% endif %}
+	</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,316 @@
+{% extends '../../../base.html' %}
+
+{% block line1 %}MOUVEMENT FOURNITURE{% endblock %}
+
+{% block line2 %}Sortie{% endblock %}
+
+{% block line3 %}| Création Sortie{% endblock %}
+
+{% block line4 %}
+<a href="{% url 'list_lsortie' %}" type="button" class="btn btn-sm btn-primary">
+                        <span class="svg-icon svg-icon-2">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+							  <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+							</svg>
+						</span>Retour
+</a>
+{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+        <form class="" action="" method="post" id="fourForm" data-qte-url="{% url 'ajax_load_qte' %}" data-serv-url="{% url 'ajax_load_serv' %}" novalidate>
+                        {% csrf_token %}
+		<div class="card-header">
+            <div class="rounded border p-2 row">
+                <div class="col-sm">
+                    <label class="fw-bolder mr-sm-2">Utilisateur</label>
+                            {{ form.employe }}
+                </div>
+                <div class="col-sm">
+                    <label class="fw-bolder mr-sm-2" style="margin-left:10px">Service</label>
+                            {{ form.service }}
+                </div>
+                <div class="col-sm">
+                    <label class="fw-bolder mr-sm-2" style="margin-left:10px">Date sortie</label>
+                            {{ form.date_s }}
+                </div>
+                <div class="col-sm">
+                    <label class="fw-bolder mr-sm-2" style="margin-left:10px" for="ref_s">Reference sortie</label>
+                    <input class="form-control" required="true" readonly="true" type="text" id="ref_s" name="ref_s" value="{{ref}}" autocomplete="off">
+                </div>
+            </div>
+        </div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4" style="margin-top: -5px;">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="fw-bolder">Fourniture</label>
+                            <select class="form-select" name="fourAdder" id="fourAdder">
+                                <option value="">---------</option>
+                                {% for f in f_entrees %}
+                                <option value="{{ f.pk }}">{{ f.ref_e }} - {{ f.nom }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <span class="form-control" style="display: none;" id="FournitId" name="FournitId">{{fId}}</span>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="fw-bolder" for="qtes">Quantité disponible</label>
+                            <span class="form-control" style="margin:auto" id="qtes">{{qte_dis}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="fw-bolder" for="qteAdder">Quantité</label>
+                            <input class="form-control" type="text" id="qteAdder" name="qte" min="0" max="parseInt(document.getElementById('qtes').innerText)"
+                                   onKeyUp="if(this.value>parseInt(document.getElementById('qtes').innerText)){swal('Veuillez saisir une quantité disponible');this.value='0';}else if(this.value<0){swal('Veuillez saisir une quantité disponible');this.value='0';}"
+                                   />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="fw-bolder" class="form-group">
+                            <label>Observations</label>
+                            <input class="form-control" type="text" value="-" id="obsAdder" name="obs" autocomplete="off" />
+                        </div>
+                    </div><br>
+
+                    <div class="col-sm-12 text-right">
+                        <button class="btn btn-warning text-right btn-sm" style="height:30px;" type="reset" onclick="document.getElementById('qtes').innerText = null" id="btn-cancel" >Annuler</button>
+                        <button class="btn btn-primary text-right btn-sm" style="height:30px;" type="button" id="btn-adder" >Ajouter</button>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="col-sm-12">
+                        <div class="scro">
+                            <table id="table_2" class="table table-bordered table-sm table-hover">
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-black-900">
+                                        <th style="text-align:center;">#</th>
+                                        <th>Fourniture</th>
+                                        <th>Quantite</th>
+                                        <th>Observations</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="fw-bold fs-12 text-black-600">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <h6 class="text-right" id="value" style="color:red;font-size:bold;"></h6>
+               <div class="col-sm-12 text-right">
+                        <button class="btn btn-primary text-right btn-sm" type="submit" >Enregistrer</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+
+    var btnAdder = document.querySelector('#btn-adder');
+    var btnCanceler = document.querySelector('#btn-cancel');
+
+    var fourAdderField = document.querySelector('#fourAdder');
+    var fournitureIdField = document.querySelector('#FournitId');
+    var qteAdderField = document.querySelector('#qteAdder');
+    var obsAdderField = document.querySelector('#obsAdder');
+    var qtmaxField = document.querySelector('#qtes');
+
+    var tableLine = document.querySelector('#table_2');
+    var tableLineBody = tableLine.querySelector('tbody');
+    var index = 0;
+    var currentIndex = null;
+
+    var actionUpdate = false;
+
+    function buildLine(line){
+        var index = line.dataset.index
+
+        var deleter = line.querySelector('.deleter')
+        var editer = line.querySelector('.editer')
+
+        deleter.addEventListener('click', function(){
+          Swal.fire({
+              title: 'Êtes-vous sûr?',
+              text: "Cette action est irréversible!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'Annuler',
+              confirmButtonText: 'Oui, supprimer!'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                console.log('deleter click')
+                line.remove();
+                Swal.fire(
+                  'Supprimé!',
+                  'La ligne a été supprimée.',
+                  'success'
+                )
+              }
+            })
+
+        });
+
+        editer.addEventListener('click', function(){
+            console.log('editer click')
+            var four = line.querySelector('[name="fourIds[]"]');
+            var fourId = four ? four.value : null;
+            var fourniture_id = line.querySelector('[name="FournitId[]"]').value;
+            var qte = line.querySelector('[name="qtefour[]"]').value;
+            var obs = line.querySelector('[name="obs_ls[]"]').value;
+            var qmax = line.querySelector('[name="qtes[]"]').value;
+
+            fourAdderField.value = fourId;
+            fournitureIdField.innerHTML = fourniture_id;
+            qteAdderField.value = qte;
+            obsAdderField.value = obs;
+            qtmaxField.innerHTML = qmax;
+
+            btnAdder.innerHTML = 'Modifier';
+            actionUpdate = true;
+
+            currentIndex = index;
+
+        });
+    }
+
+    function reinit(){
+        currentIndex = null;
+        btnAdder.innerHTML = 'Ajouter';
+        actionUpdate = false;
+        fourAdderField.value = null;
+        document.getElementById('FournitId').innerText = null;
+        qteAdderField.value = null;
+        obsAdderField.value = null;
+        document.getElementById('qtes').innerText = null;
+    }
+
+    function calculTotal(){
+
+    }
+
+    btnAdder.addEventListener('click', function(event){
+        var table = document.getElementById("table_2")
+        var fourId = fourAdderField.value;
+        var fourniture_id = parseInt(document.getElementById('FournitId').innerText);
+        var qte = qteAdderField.value;
+        var obs = obsAdderField.value;
+        var qtemax = parseInt(document.getElementById('qtes').innerText);
+
+        if(table.rows.length == 0){
+            swal('Svp, Veuillez enregistrer au moins une ligne sortie de fourniture !');
+            reinit();
+        }else {
+            if(fourId && qte && obs){
+                var fourLibelle = fourAdderField.options[fourAdderField.selectedIndex].text;
+                var currentLine = tableLineBody.querySelector('[data-index="'+ currentIndex +'"]');
+                var existedLine = tableLineBody.querySelector('[data-id="'+ fourId +'"]');
+
+
+                if(existedLine && !actionUpdate){
+                    swal('Ce fourniture est déja dans la liste. Merci de choisir un autre !');
+                    document.getElementById('qtes').innerText = null;
+                    qteAdderField.value = null;
+                    obsAdderField.value = null;
+                }else{
+                    if (qte == 0 || qte>parseInt(document.getElementById('qtes').innerText)){
+                        swal('Veuillez saisir une quantité correcte !');
+                    }else{
+                        if(actionUpdate && currentLine){
+                                currentLine.innerHTML = '<td style="display:none;"><input type="hidden" name="qtes[]" value="'+ qtemax +'" />'+ qtemax +'</td><td style="text-align:center;">' + currentIndex + '</td><td><input type="hidden" name="fourIds[]" value="'+ fourId +'" />'+ fourLibelle +'</td> <td style="display:none;"><input type="hidden" name="FournitId[]" value="'+ fourniture_id +'" />'+ fourniture_id +'</td> <td><input type="hidden" name="qtefour[]" value="'+ qte +'" />'+ qte +'</td> <td> <input type="hidden" name="obs_ls[]" value="'+ obs +'" />'+ obs +'</td> <td> <a class="editer" data-index="'+ currentIndex +'">Modifier</a> <a class="deleter" style="margin-left:5px" data-index="'+ currentIndex +'">Supprimer</a></td>';
+                                buildLine(currentLine)
+                        }else{
+                            if(!currentLine){
+                                    index++;
+                                    if(index == 1){
+                                        $('#table_2').find('tbody tr').remove();
+                                    }
+                                    var newRow = tableLineBody.insertRow(0);
+                                    newRow.setAttribute('data-index', index);
+                                    newRow.setAttribute('data-id', fourId);
+                                    newRow.innerHTML = '<td style="display:none;"><input type="hidden" name="qtes[]" value="'+ qtemax +'" />'+ qtemax +'</td><td style="text-align:center;">' + index + '</td><td><input type="hidden" name="fourIds[]" value="'+ fourId +'" />'+ fourLibelle +'</td> <td style="display:none;"><input type="hidden" name="FournitId[]" value="'+ fourniture_id +'" />'+ fourniture_id +'</td> <td><input type="hidden" name="qtefour[]" value="'+ qte +'" />'+ qte +'</td> <td> <input type="hidden" name="obs_ls[]" value="'+ obs +'" />'+ obs +'</td> <td><a class="editer" id="mod" data-index="'+ index +'">Modifier</a> <a class="deleter" style="margin-left:5px" data-index="'+ index +'">Supprimer</a>  </td>';
+                                    buildLine(newRow);
+                            }
+                        }
+                    }
+
+                    reinit();
+                }
+            }
+        }
+    });
+
+    function buildTable(){
+        $('#table_2').DataTable().destroy();
+        $('#table_2').DataTable()
+    }
+
+    buildTable();
+
+    //A faire : verification libelle produit en mode update
+</script>
+<script>
+   $("#fourAdder").change(function () {
+      var url = $("#fourForm").attr("data-qte-url");
+      var AchatId = $(this).val();
+      $.ajax({
+        url: url,
+        data: {
+          'achat_id': AchatId
+        },
+        success: function (data) {
+          $("#FournitId").html(data[0]);
+          $("#qtes").html(data[1]);
+        }
+      });
+   });
+
+</script>
+<script>
+    $("#emp").change(function () {
+      var url = $("#fourForm").attr("data-serv-url");
+      var empId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'emp_ref': empId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#service").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+</script>
+{% endblock %}

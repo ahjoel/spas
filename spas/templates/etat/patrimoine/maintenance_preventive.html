@@ -1,0 +1,64 @@
+{% extends '../../base.html' %}
+
+{% block line1 %}ETATS{% endblock %}
+
+{% block line2 %}PATRIMOINE{% endblock %}
+
+{% block line3 %}| MAINTENANCE PREVENTIVE {% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+
+	<div class="card">
+
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+			<div class="card-body stok">
+					{% if maint_cours|length > 0 %}
+						<table class="table table-hover">
+							<thead>
+								<tr class="fw-bolder fs-6 text-gray-800">
+									<th class="min-w-10px">#</th>
+									<th class="min-w-125px">Reference materiel</th>
+									<th class="min-w-125px">Nom materiel</th>
+									<th class="min-w-50px">Date debut</th>
+									<th class="min-w-50px">Date fin</th>
+								</tr>
+							</thead>
+								{% for lent in maint_cours %}
+									<tbody>
+										<tr>
+											<td>{{ forloop.counter }}</td>
+											<td>{{ lent.ref_mat }}</td>
+											<td>{{ lent.nom }}</td>
+											<td>{{ lent.date_d }}</td>
+											<td>{{ lent.date_f }}</td>
+										</tr>
+									</tbody>
+								{% endfor %}
+						</table>
+			</div>
+					{% else %}
+						Aucun résultat à afficher
+	</div>
+			{% endif %}
+	</div>
+
+	<div style="text-align:right;margin-top:10px;">
+		<form method="GET" autocomplete="off" class="form-inline" action="{% url 'maitenance_en_cours' %}">
+                            {% csrf_token %}
+			<input type='hidden' class="form-control" value="1" id="date_d" name="date_d"/>
+			<button type="submit" class="btn btn-sm btn-primary mb-2">Export PDF</button>
+		</form>
+	</div>
+
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+</script>
+{% endblock %}

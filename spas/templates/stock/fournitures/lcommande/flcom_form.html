@@ -1,0 +1,263 @@
+{% extends '../../../base.html' %}
+
+{% block line1 %}MOUVEMENT FOURNITURE{% endblock %}
+
+{% block line2 %}Commande{% endblock %}
+
+{% block line3 %}| Création Commande{% endblock %}
+
+{% block line4 %}
+<a href="{% url 'list_lcommande' %}" type="button" class="btn btn-sm btn-primary">
+                        <span class="svg-icon svg-icon-2">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply" viewBox="0 0 16 16">
+							  <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+							</svg>
+						</span>Retour
+</a>
+{% endblock %}
+
+{% block content %}
+<div id="kt_content_container" class="container">
+	<div class="card">
+        <form method="post">
+            {% csrf_token %}
+		<div class="card-header">
+            <div class="rounded border p-2 row">
+                <div class="col-sm-3">
+                    <label class="fw-bolder" style="margin-left:10px">Date</label>
+                            {{ form.date_c }}
+                </div>
+                <div class="col-sm-4">
+                    <label class="fw-bolder" style="margin-left:10px" for="ref_c">Reference</label>
+                    <input class="form-control" required="true" readonly="true"  type="text" id="ref_c" name="ref_c" value="{{ref}}" autocomplete="off">
+                </div>
+            </div>
+		</div>
+		<!--end::Card header-->
+		<!--begin::Card body-->
+
+        <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4" style="margin-top:-10px;">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="fw-bolder">Fourniture</label>
+                                        {{ form.fourniture }}
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="fw-bolder" for="qteAdder">Quantité</label>
+                                        <input class="form-control" type="text" id="qteAdder" name="qte" autocomplete="off"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="fw-bolder">Prix</label>
+                                        <input class="form-control" type="number" id="prixAdder" name="prix" autocomplete="off"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="fw-bolder">Observations</label>
+                                        <input class="form-control" type="text" value="-" id="obsAdder" name="obs" autocomplete="off"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 text-right">
+                                    <button class="btn btn-warning text-right btn-sm" style="height:30px;" type="reset" id="btn-cancel" >Annuler</button>
+                                    <button class="btn btn-primary text-right btn-sm" style="height:30px;" type="button" id="btn-adder" >Ajouter</button>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <div class="col-sm-12">
+                                    <div class="scro">
+                                        <table id="table_2" class="table table-bordered table-sm table-hover">
+                                            <thead>
+                                                <tr class="fw-bold fs-6 text-black-900">
+                                                    <th style="text-align:center;">#</th>
+                                                    <th>Fourniture</th>
+                                                    <th>Quantite</th>
+                                                    <th>Observations</th>
+                                                    <th>Prix U</th>
+                                                    <th>Total</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="fw-bold fs-12 text-black-600">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <h6 class="text-right" id="value" style="color:red;font-size:bold;"></h6>
+                           <div class="col-sm-12 text-right">
+                                    <button class="btn btn-primary text-right btn-sm" type="submit" >Enregistrer</button>
+                           </div>
+                        </div>
+        </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    {% for msg in messages %}
+       swal('{{ msg }}')
+    {% endfor %}
+
+    var btnAdder = document.querySelector('#btn-adder');
+    var btnCanceler = document.querySelector('#btn-cancel');
+
+    var fourAdderField = document.querySelector('#fourAdder');
+    var qteAdderField = document.querySelector('#qteAdder');
+    var obsAdderField = document.querySelector('#obsAdder');
+    var priceAdderField = document.querySelector('#prixAdder');
+    var tableLine = document.querySelector('#table_2');
+    var tableLineBody = tableLine.querySelector('tbody');
+    var index = 0;
+    var currentIndex = null;
+
+    var actionUpdate = false;
+
+    function buildLine(line){
+        var index = line.dataset.index
+
+        var deleter = line.querySelector('.deleter')
+        var editer = line.querySelector('.editer')
+
+        deleter.addEventListener('click', function(){
+          Swal.fire({
+              title: 'Êtes-vous sûr?',
+              text: "Cette action est irréversible!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              cancelButtonText: 'Annuler',
+              confirmButtonText: 'Oui, supprimer!'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                console.log('deleter click')
+                line.remove();
+                Swal.fire(
+                  'Supprimé!',
+                  'La ligne a été supprimée.',
+                  'success'
+                )
+                calculTotal();
+              }
+            })
+
+        });
+
+        editer.addEventListener('click', function(){
+            console.log('editer click')
+            var four = line.querySelector('[name="fourIds[]"]');
+            var fourId = four ? four.value : null;
+            var qte = line.querySelector('[name="qtefour[]"]').value;
+            var obs = line.querySelector('[name="obs_c[]"]').value;
+            var price = line.querySelector('[name="prices[]"]').value;
+
+            fourAdderField.value = fourId;
+            qteAdderField.value = qte;
+            obsAdderField.value = obs;
+            priceAdderField.value = price;
+
+            btnAdder.innerHTML = 'Modifier';
+            actionUpdate = true;
+
+            currentIndex = index;
+        });
+    }
+
+    function reinit(){
+        currentIndex = null;
+        btnAdder.innerHTML = 'Ajouter';
+        actionUpdate = false;
+        fourAdderField.value = null;
+        qteAdderField.value = null;
+        obsAdderField.value = null;
+        priceAdderField.value = null;
+    }
+
+    function calculTotal(){
+        var table = document.getElementById("table_2"), sumVal =0;
+
+        if(table.rows.length >0) {
+            for(var i = 1; i < table.rows.length; i++){
+                sumVal = sumVal + parseInt(table.rows[i].cells[5].innerHTML);
+            }
+        }
+        document.getElementById("value").innerHTML = "Montant total : "+ sumVal + " F CFA";
+    }
+
+    btnAdder.addEventListener('click', function(event){
+        var table = document.getElementById("table_2")
+        var fourId = fourAdderField.value;
+        var qte = qteAdderField.value;
+        var obs = obsAdderField.value;
+        var price = priceAdderField.value;
+
+        if(table.rows.length == 0){
+            swal('Svp, Veuillez enregistrer au moins une ligne commande de fourniture !');
+            reinit();
+        }else {
+            if(fourId && qte && obs && price){
+                var fourLibelle = fourAdderField.options[fourAdderField.selectedIndex].text;
+                var currentLine = tableLineBody.querySelector('[data-index="'+ currentIndex +'"]');
+                var existedLine = tableLineBody.querySelector('[data-id="'+ fourId +'"]');
+                var totalPrice = parseFloat(qte) * parseFloat(price);
+
+                if(existedLine && !actionUpdate){
+                    swal('Ce fourniture est déja dans la liste. Merci de choisir un autre !');
+                }else{
+                    if (qte<=0){
+                        swal('Veuillez saisir une quantité correcte !');
+                    }else{
+                        if(actionUpdate && currentLine){
+                            currentLine.innerHTML = '<td style="text-align:center;">' + currentIndex + '</td><td><input type="hidden" name="fourIds[]" value="'+ fourId +'" />'+ fourLibelle +'</td> <td><input type="hidden" name="qtefour[]" value="'+ qte +'" />'+ qte +'</td> <td> <input type="hidden" name="obs_c[]" value="'+ obs +'" />'+ obs +'</td><td> <input type="hidden" name="prices[]" value="'+ price +'" />'+ price +'</td> <td>'+ totalPrice +'</td> <td><a class="editer" data-index="'+ currentIndex +'">Modifier</a> <a class="deleter" style="margin-left:5px" data-index="'+ currentIndex +'">Supprimer</a></td>';
+                            buildLine(currentLine)
+                        }else{
+                            if(!currentLine){
+                                index++;
+                                if(index == 1){
+                                    $('#table_2').find('tbody tr').remove();
+                                }
+                                var newRow = tableLineBody.insertRow(0);
+                                newRow.setAttribute('data-index', index);
+                                newRow.setAttribute('data-id', fourId);
+                                newRow.innerHTML = '<td style="text-align:center;">' + index + '</td><td><input type="hidden" name="fourIds[]" value="'+ fourId +'" />'+ fourLibelle +'</td> <td><input type="hidden" name="qtefour[]" value="'+ qte +'" />'+ qte +'</td> <td> <input type="hidden" name="obs_c[]" value="'+ obs +'" />'+ obs +'</td><td> <input type="hidden" name="prices[]" value="'+ price +'" />'+ price +'</td> <td>'+ totalPrice +'</td> <td><a class="editer" data-index="'+ index +'">Modifier</a><a class="deleter" style="margin-left:5px" data-index="'+ index +'">Supprimer</a>  </td>';
+                                buildLine(newRow);
+                            }
+                        }
+                    }
+                    reinit();
+                }
+            }
+        }
+        calculTotal();
+    });
+
+
+    function buildTable(){
+        $('#table_2').DataTable().destroy();
+        $('#table_2').DataTable()
+    }
+
+    buildTable();
+
+    //A faire : verification libelle produit en mode update
+</script>
+{% endblock %}
