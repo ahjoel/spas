@@ -1,0 +1,15 @@
+.hero-image {
+  background-image: url("../media/logos/spasimg2.png"); /* The image used */
+  /* background-color: #333333;  Used if the image is unavailable */
+  /* height: 500px;  You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.hero-image-footer {
+  background-color: #F5F8FA;  /* Used if the image is unavailable */
+  /* height: 500px;  You must set a specified height */
+  background-position: center; /* Center the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
