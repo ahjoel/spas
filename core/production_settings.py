@@ -6,7 +6,7 @@ from django.conf.global_settings import DATABASES
 
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'sg-spas.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'sg-spas.herokuapp.com', 'web-production-65d7.up.railway.app']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
