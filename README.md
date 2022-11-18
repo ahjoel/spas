@@ -13,6 +13,33 @@ SPAS est un logiciel de gestion du stock de matériel de bureau et du patrimoine
 
 # 
 
+<a href="https://sg-spas.herokuapp.com" >
+    <img width="100%"
+      alt="Founitures"
+      src="https://github.com/ahjoel/spas/blob/master/1.jpg"
+    />
+ </a>
+ 
+#
+
+<a href="https://sg-spas.herokuapp.com" >
+    <img width="100%"
+      alt="Liste Des Sorties"
+      src="https://github.com/ahjoel/spas/blob/master/3.jpg"
+    />
+</a>
+
+#
+
+<a href="https://sg-spas.herokuapp.com" >
+    <img width="100%"
+      alt="Création De Sortie"
+      src="https://github.com/ahjoel/spas/blob/master/2.jpg"
+    />
+</a>
+  
+#
+
 1- Enregistrement des fournitures
 
 2- Création des commandes
@@ -47,7 +74,7 @@ $ python manage.py migrate
 $ python manage.py runserver
 ``` 
 
-Production Example
+## Production Example
 
 1- Set DEBUG to False in the settings.py file
 
