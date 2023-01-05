@@ -1,6 +1,7 @@
 # SPAS - Système de gestion du Patrimoine et Appro Stock
 
 Visitez [le site.](https://sg-spas.herokuapp.com)
+Fichier joel.
 
 # Fonctionnalités
 
@@ -16,9 +17,13 @@ SPAS est un logiciel de gestion du stock de matériel de bureau et du patrimoine
 <a href="https://sg-spas.herokuapp.com" >
     <img width="100%"
       alt="Founitures"
-      src="https://github.com/ahjoel/spas/blob/master/1.jpg"
-    />
+      src="https://github.com/ahjoel/spas/blob/master/1.jpg"/>
+    
+
+    
+    
  </a>
+
  
 #
 
