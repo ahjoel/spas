@@ -1,6 +1,5 @@
 # SPAS - Système de gestion du Patrimoine et Appro Stock
 
-Visitez [le site.](https://sg-spas.herokuapp.com)
 
 # Fonctionnalités
 
